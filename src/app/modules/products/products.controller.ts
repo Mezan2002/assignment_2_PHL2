@@ -29,10 +29,15 @@ const createProduct = async (req: Request, res: Response) => {
 // get all products
 const getProduct = async (req: Request, res: Response) => {
   try {
-    const result = await ProductsService.getAllProductsFromDB();
+    const { search } = req.query;
+    const result = await ProductsService.getAllProductsFromDB(
+      (search as string) || null
+    );
     res.status(200).json({
       success: true,
-      message: "Products fetched successfully!",
+      message: search
+        ? `Products matching search term '${search}' fetched successfully!`
+        : "Products fetched successfully!",
       data: result,
     });
   } catch (err: any) {
@@ -61,6 +66,7 @@ const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+// update a product
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -82,6 +88,7 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
+// delete a product
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;

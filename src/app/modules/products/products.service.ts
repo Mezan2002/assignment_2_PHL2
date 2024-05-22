@@ -9,7 +9,14 @@ const createProductIntoDB = async (product: Product) => {
 };
 
 // get all products
-const getAllProductsFromDB = async () => {
+const getAllProductsFromDB = async (search: string | null) => {
+  if (search) {
+    const regex = new RegExp(search, "i");
+    const results = await productModel.find({
+      $or: [{ name: regex }, { description: regex }, { category: regex }],
+    });
+    return results;
+  }
   const result = await productModel.find();
   return result;
 };
@@ -33,8 +40,13 @@ const updateProductIntoDB = async (
 };
 
 const deleteProductFromDB = async (productId: string) => {
-  const result = await productModel.findByIdAndDelete(productId);
-  return result;
+  const ifProductExists = await productModel.findById(productId);
+  if (ifProductExists) {
+    const result = await productModel.findByIdAndDelete(productId);
+    return null;
+  }
+  const message = "Product not exists in database!";
+  return message;
 };
 
 export const ProductsService = {
