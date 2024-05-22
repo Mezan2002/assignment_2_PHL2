@@ -15,7 +15,7 @@ app.use("/api", OrdersRoutes);
 
 // home route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.send("Hurrah! Ecommerce server is running...");
 });
 
 export default app;
