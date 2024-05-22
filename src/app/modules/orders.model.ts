@@ -22,4 +22,4 @@ const orderSchema = new Schema<Orders>({
 });
 
 // order model
-const orderModel = model<Orders>("Order", orderSchema);
+export const orderModel = model<Orders>("Order", orderSchema);
