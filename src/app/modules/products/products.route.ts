@@ -11,6 +11,7 @@ router.post("/products", ProductsController.createProduct);
 router.get("/products", ProductsController.getProduct);
 router.get("/products/:productId", ProductsController.getProductById);
 router.put("/products/:productId", ProductsController.updateProduct);
+router.delete("/products/:productId", ProductsController.deleteProduct);
 
 // orders routes
 
