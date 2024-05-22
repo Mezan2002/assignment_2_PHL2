@@ -5,5 +5,6 @@ import { OrdersController } from "./orders.controller";
 const router = express.Router();
 
 router.post("/orders", OrdersController.createOrder);
+router.get("/orders", OrdersController.getOrders);
 
 export const OrdersRoutes = router;
