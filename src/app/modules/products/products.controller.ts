@@ -3,6 +3,8 @@ import { ProductsService } from "./products.service";
 import productValidationSchema from "./products.validation";
 
 // controllers for product
+
+// create a new product
 const createProduct = async (req: Request, res: Response) => {
   try {
     const { product: productData } = req.body;
@@ -24,11 +26,13 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+// get all products
 const getProduct = async (req: Request, res: Response) => {
   try {
     const result = await ProductsService.getAllProductsFromDB();
     res.status(200).json({
       success: true,
+      message: "Products fetched successfully!",
       data: result,
     });
   } catch (err: any) {
@@ -39,4 +43,22 @@ const getProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const ProductsController = { createProduct, getProduct };
+// get product by id
+const getProductById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductsService.getProductByIdFromDB(productId);
+    res.status(200).json({
+      success: true,
+      message: "Product fetched successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+export const ProductsController = { createProduct, getProduct, getProductById };
