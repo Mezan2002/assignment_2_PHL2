@@ -12,7 +12,13 @@ const createOrder = async (req: Request, res: Response) => {
 
     if (result !== null) {
       const product = await productModel.findById(order.productId);
-
+      if (order.quantity > (product?.inventory?.quantity as number)) {
+        res.status(400).json({
+          success: false,
+          message: "Insufficient quantity available in inventory",
+          data: null,
+        });
+      }
       if (product && product.inventory && product.inventory.quantity > 0) {
         const newQuantity = product.inventory.quantity - order.quantity;
         const updatedProductData = {
