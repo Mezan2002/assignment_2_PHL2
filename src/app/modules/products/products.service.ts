@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { productModel } from "../products.model";
+import { productModel } from "./products.model";
 import { Product } from "./products.interface";
 
 // create a new product

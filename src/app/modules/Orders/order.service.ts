@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { orderModel } from "../orders.model";
+import { orderModel } from "./orders.model";
 import { Orders } from "./orders.interface";
 
 const createOrderIntoDB = async (order: Orders) => {

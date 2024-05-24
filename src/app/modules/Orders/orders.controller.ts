@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { OrdersService } from "./order.service";
-import { productModel } from "../products.model";
+import { productModel } from "../products/products.model";
 import { OrdersValidationSchema } from "./orders.validation";
 import mongoose from "mongoose";
 
