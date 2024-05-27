@@ -33,12 +33,12 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-/* // no route error (404 Not Found)
+// no route error (404 Not Found)
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
-    success: false,
+    success: true,
     message: "Route not found",
   });
-}); */
+});
 
 export default app;
