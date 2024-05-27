@@ -9,14 +9,14 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-// api routes
-app.use("/api", ProductsRoutes);
-app.use("/api", OrdersRoutes);
-
 // home route
 app.get("/", (req: Request, res: Response) => {
   res.send("Hurrah! Ecommerce server is running...");
 });
+
+// api routes
+app.use("/api", ProductsRoutes);
+app.use("/api", OrdersRoutes);
 
 // no route error (404 Not Found)
 app.use((req: Request, res: Response, next: NextFunction) => {
