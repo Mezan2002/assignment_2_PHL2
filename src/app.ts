@@ -18,14 +18,6 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api", ProductsRoutes);
 app.use("/api", OrdersRoutes);
 
-// no route error (404 Not Found)
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found",
-  });
-});
-
 // error handling middleware (for other types of errors)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error("Error occurred:", err);
@@ -40,5 +32,13 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     error: err.message,
   });
 });
+
+/* // no route error (404 Not Found)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
+}); */
 
 export default app;
