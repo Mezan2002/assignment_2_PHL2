@@ -13,6 +13,11 @@ app.use(cors());
 app.use("/api", ProductsRoutes);
 app.use("/api", OrdersRoutes);
 
+// home route
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hurrah! Ecommerce server is running...");
+});
+
 // no route error (404 Not Found)
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
@@ -28,11 +33,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     success: false,
     message: "Internal Server Error",
   });
-});
-
-// home route
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hurrah! Ecommerce server is running...");
 });
 
 export default app;
