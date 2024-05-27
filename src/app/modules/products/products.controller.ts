@@ -1,11 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ProductsService } from "./products.service";
 import productValidationSchema from "./products.validation";
 
 // controllers for product
 
 // create a new product
-const createProduct = async (req: Request, res: Response) => {
+const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { product: productData } = req.body;
     // parsing data by using zod
@@ -19,15 +23,12 @@ const createProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err,
-    });
+    next(err);
   }
 };
 
 // get all products
-const getProduct = async (req: Request, res: Response) => {
+const getProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { search } = req.query;
     const result = await ProductsService.getAllProductsFromDB(
@@ -41,15 +42,16 @@ const getProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err,
-    });
+    next(err);
   }
 };
 
 // get product by id
-const getProductById = async (req: Request, res: Response) => {
+const getProductById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { productId } = req.params;
     const result = await ProductsService.getProductByIdFromDB(productId);
@@ -59,15 +61,16 @@ const getProductById = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err,
-    });
+    next(err);
   }
 };
 
 // update a product
-const updateProduct = async (req: Request, res: Response) => {
+const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { productId } = req.params;
     const updatedProductData = req.body;
@@ -81,15 +84,16 @@ const updateProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err,
-    });
+    next(err);
   }
 };
 
 // delete a product
-const deleteProduct = async (req: Request, res: Response) => {
+const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { productId } = req.params;
     const result = await ProductsService.deleteProductFromDB(productId);
@@ -99,10 +103,7 @@ const deleteProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err,
-    });
+    next(err);
   }
 };
 

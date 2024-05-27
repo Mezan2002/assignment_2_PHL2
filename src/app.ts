@@ -28,10 +28,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // error handling middleware (for other types of errors)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).json({
+  console.error("Error occurred:", err);
+
+  // Set a default status code (500 Internal Server Error)
+  const statusCode = err.statusCode || 500;
+
+  // Send an error response to the client
+  res.status(statusCode).json({
     success: false,
-    message: "Internal Server Error",
+    message: err.message || "An error occurred. Please try again later.",
+    error: err.message,
   });
 });
 
